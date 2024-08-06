@@ -1,7 +1,39 @@
 import Header from "./components/Header"
 import Guitar from "./components/Guitar"
+import { useState } from "react"
+import { db } from "./data/db";
 
 function App() {
+
+  const [data, setData] = useState(db)
+  const [cart, setCart] = useState([])
+  
+  const addToCart = (item) => {
+
+    const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+
+    if(itemExists >= 0){
+
+      const updatedCart = [...cart]
+
+      updatedCart[itemExists].quantity++
+
+      setCart([...cart, item])
+
+      console.log(cart)
+
+    }else{
+
+      item.quantity = 1
+
+      setCart([...cart, item])
+
+      console.log(cart)
+
+    }
+
+  }
+
   return (
     <>
 
@@ -12,7 +44,15 @@ function App() {
 
             <div className="row mt-5">
 
-                <Guitar />
+              {data.map( 
+                (guitar) => 
+                  (<Guitar 
+                    key={guitar.id} 
+                    guitar={guitar}
+                    setCart={setCart}
+                    addToCart={addToCart}
+                  />)
+              )}
               
                 <div className="col-md-6 col-lg-4 my-4 row align-items-center">
                     <div className="col-4">
