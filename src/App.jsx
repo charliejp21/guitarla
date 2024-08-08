@@ -2,6 +2,7 @@ import Header from "./components/Header"
 import Guitar from "./components/Guitar"
 import { useEffect, useState } from "react"
 import { db } from "./data/db";
+import { useCart } from "./hooks/useCart";
 
 function App() {
 
